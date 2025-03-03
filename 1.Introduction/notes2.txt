@@ -1,0 +1,98 @@
+Hooks:
+
+Redux Hooks do statemanangement in functional componenent.
+There are two hooks:
+1.useSelector() -> takes data from redux store
+2.useDispatch() -> sends action to Redux. 
+
+
+=============================================================================
+UseSelector:    redux store se state ko extract karega.
+------------
+
+import {useSelector} from 'react-redux';
+
+export default function Counter()
+{
+    const count= useSelector((state)=>state.count);
+    return <h1>Count: {count}</h1>;
+};
+
+//state is automatically passes by redux. 
+//Jab Redux store update hoga, yeh component automatically re-render hoga.
+// Agar sirf count state change ho to sirf ye component re-render hoga, poori app nahi.
+=============================================================================
+
+useDispatch():  Redux me Action Bhejne ke Liye
+                Redux me action dispactch karne ke leye use hota hai. 
+                Redux में dispatch का मतलब होता है action को reducer तक भेजना ताकि state को update किया जा सके।
+
+import {useDispatch} from 'react-redux';
+import { increment, decrement } from "./actions";
+
+export default function Coutner()
+{
+    const dispatch = useDispatch();
+    return(
+        <div>
+        <button onClick={()=> dispatch(increment())}>  +  </button>
+         <button onClick={()=>dispatch(decrement())}>  -  </button>
+    );
+}
+
+✅ dispatch(increment()) action Reducer tak bhejega, jo count badhayega.
+✅ dispatch(decrement()) action Reducer tak bhejega, jo count kam karega.
+
+=============================================================================
+
+How to connect Store to App
+---------------------------
+
+
+ import { Provider } from "react-redux";
+ import store from "./store";
+
+ ReactDOM.render(
+    <Provider store={store}>
+    <App/>
+    </Provider>
+ )
+
+ Provider 
+ --------
+
+ <Provider> ek React Component hai jo Redux ka store puri application me available karata hai. 
+Agar <Provider> na ho to?
+
+Redux store ka data kisi bhi component me directly available nahi hoga.
+useSelector() aur useDispatch() kaam nahi karenge.
+
+ab Redux ka store create karte hain, usse <Provider> ke andar wrap karna padta hai.
+
+The Provider makes sure that all components (like Counter.js) can access the Redux store.
+=============================================================================
+
+How to setup store
+------------------- 
+
+Redux me store ka setup bahut zaroori hota hai kyunki yeh centralized state ko manage karta hai.
+
+Redux store ek jagah pe saari state store karta hai aur components ko state access karne aur update karne ka tareeka deta hai.
+
+import {crateStore} from 'redux';
+import countReducer from '.reducer'; //reducerFunction
+
+const store =createStore(counterReducer);
+export default store;
+
+=============================================================================
+Note:##
+Redux me multiple reducers ko ek store me combine karne ke liye combineReducers() ka use karte hain.
+
+Agar tum multiple times createStore(reducer1) aur createStore(reducer2) likhoge, to alag-alag stores ban jayenge, jo ek doosre se alag state manage karenge.
+
+👉 **Redux ka main concept yeh hai ki application ka ek single source of truth ho, isliye ek hi store hota hai jo saare reducers ka data ek jagah manage karta hai.
+
+Agar tum alag-alag store banaoge, to React components ek store ka data access nahi kar sakenge jo doosre store me hai.
+
+=============================================================================

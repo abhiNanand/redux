@@ -1,0 +1,112 @@
+Redux middleware
+---------------- 
+
+ 
+-we can also perform side effect like:
+ Asynchronous actions ( API calls )
+ Logging actions 
+ Modifying dispatched actions.
+ Delaying actions. 
+
+
+takes next methods as an argument, which it can call to pass the action to the next middleware or reducer.
+
+ It can process the action before and or after calling next, modify the action, dispatch additional actions, or even decide not to call next at all — it’s totally up to the task at hand.
+
+example:
+
+
+function simpleMiddleware({getState,dispatch})
+{
+    return function(next)
+    {
+        return function(action){
+            //processing
+            const nextAction = next(action);
+
+            //read the next state 
+            const state = getState();
+
+            //return the next action or you can dispatch any other action.
+            return nextAction.
+        }
+    }
+}
+=-=-=-==-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=
+
+Middleware  Kaise Kaam Karta Hai?
+-----------------------------------
+Middleware ek function hota hai jo store ke dispatch ko override karta hai.
+Jab koi action dispatch hota hai, middleware us action ko intercept karta hai aur phir:
+
+Action ko modify kar sakta hai
+Action ko delay kar sakta hai
+Async API calls ka handle kar sakta hai
+Logger jaise debugging tools ka use kar sakta hai
+
+
+=============================================================================
+
+Creating custom middleware.
+
+ const loggerMiddleware = (store) => (next) => (action) => {
+    console.log("Previous State:", store.getState());
+    console.log("Action:", action);
+    next(action);  // Action ko next middleware ya reducer tak bhejna
+    console.log("New State:", store.getState());
+};
+
+
+2️⃣ Middleware ko Redux Store me Apply Karna
+ import { createStore, applyMiddleware } from 'redux';
+
+// Reducer function
+const reducer = (state = { count: 0 }, action) => {
+    switch (action.type) {
+        case 'INCREMENT':
+            return { count: state.count + 1 };
+        default:
+            return state;
+    }
+};
+
+// Middleware ko apply karna
+const store = createStore(reducer, applyMiddleware(loggerMiddleware));
+
+// Action Dispatch karke Middleware ko trigger karna
+store.dispatch({ type: 'INCREMENT' });
+
+
+Previous State: { count: 0 }
+Action: { type: "INCREMENT" }
+New State: { count: 1 }
+
+=============================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

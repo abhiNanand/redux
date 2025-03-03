@@ -1,0 +1,191 @@
+
+-receives the store's dispatch methods and getState function as argument. 
+
+
+step1:
+Installation
+------------ 
+npm install redux-thunk 
+
+
+step2:
+------
+integrate redux thunk into your redux store by applying it  middleware when creating the store.
+
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './reducers';
+
+const store = createStore(rootReducer, applyMiddleware(thunk));
+//applyMiddleware redux ko store me inject karta hai. 
+
+step3: writing thunk function:
+------ 
+
+-define asynchronous action creators that return function.
+-function should have acccess to dispatch and getState methods of the Redux store. 
+
+
+//ACTION TYPES
+export const FETCH_DATA_REQUEST = "FETCH_DATA_REQUEST";
+export const FETCH_DATA_SUCCESS = "FETCH_DATA_SUCCESS";
+export const FETCH_DATA_FAILURE = "FETCH_DATA_FAILURE";
+
+//ACTION CREATORS 
+export const fetchDataRequest = () => ({
+    type:FETCH_DATA_REQUEST
+});
+
+ export const fetchDataRequest = () => ({
+    type:FETCH_DATA_REQUEST
+    payload:data
+});
+
+export const fetchDataRequest = () => ({
+    type:FETCH_DATA_REQUEST
+    payload:error
+});
+
+//Thunk action creator:
+export const fetchData = () {
+    return async(dispatch, getState) => 
+    {
+        dispatch(fetchDataRequest());
+    }
+    try
+    {
+   const response = await axios.get('https://api.example.com/data');
+      dispatch(fetchDataSuccess(response.data));
+    } catch (error) {
+      dispatch(fetchDataFailure(error.message));
+    }
+  };
+};
+
+In this example:
+
+We defined action types for different stages of the data fetching process: request, success, and failure.
+We defined action creators for each action type, which return plain action objects with the appropriate type and payload.
+We defined a thunk action creator called fetchData, which returns a function instead of a plain action object. This function receives dispatch and getState as arguments, allowing us to dispatch actions and access the current Redux state.
+Inside the thunk function, we dispatch the FETCH_DATA_REQUEST action to indicate that the data fetching process has started.
+We used axios (you can use any other HTTP client) to make an asynchronous GET request to fetch data from an API endpoint.
+If the request is successful, we dispatch the FETCH_DATA_SUCCESS action with the fetched data as the payload.
+If the request fails, we dispatch the FETCH_DATA_FAILURE action with the error message as the payload.
+Thunk functions provide a flexible and powerful way to handle asynchronous actions in Redux, allowing you to encapsulate complex asynchronous logic and manage side effects effectively.
+
+=============================================================================
+
+3.2. Dispatching Thunk Actions
+-------------------------------
+
+dispatch thunk action just like regular action using dispatch method provided by Redux store:
+
+store.dispatch(fetchUser());
+
+When you dispatch a thunk action, Redux-Thunk intercepts it and invokes the thunk function with the dispatch method and getState function as arguments.
+
+This allows the thunk function to perform asynchronous operations and dispatch additional actions if needed.
+=============================================================================
+
+4. Handling Asynchronous Operations
+-----------------------------------
+
+A. Import Necessary Dependencies
+  -npm install redux redux-thunk axios 
+
+B. Create thunk action creators:
+   Thunk are the function that return another function allow to perfrom asynchronous operation before dispatching actions. 
+
+C. Dispatch Thunk Actions
+--------------------------
+Dispatch thunk action creator from componenet when we need to fetch data. 
+This will trigger the asynchronous API call and update the Redux store accordingly.
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchData } from './actions';
+
+const SomeComponent = () => {
+  const dispatch = useDispatch();
+  const { data, isLoading, error } = useSelector(state => state.someReducer);
+
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  return (
+    <div>
+      {/* Display fetched data */}
+    </div>
+  );
+};
+
+export default SomeComponent;
+
+=============================================================================
+
+D.Update Reducer:
+Update the reducer to handle the dispatched actions and update the state accordingly.
+
+// reducers.js
+const initialState = {
+  data: null,
+  isLoading: false,
+  error: null
+};
+
+const someReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'FETCH_DATA_REQUEST':
+      return { ...state, isLoading: true, error: null };
+    case 'FETCH_DATA_SUCCESS':
+      return { ...state, data: action.payload, isLoading: false };
+    case 'FETCH_DATA_FAILURE':
+      return { ...state, error: action.payload, isLoading: false };
+    default:
+      return state;
+  }
+};
+
+export default someReducer;const initialState = {
+  data: null,
+  isLoading: false,
+  error: null
+};
+
+const someReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'FETCH_DATA_REQUEST':
+      return { ...state, isLoading: true, error: null };
+    case 'FETCH_DATA_SUCCESS':
+      return { ...state, data: action.payload, isLoading: false };
+    case 'FETCH_DATA_FAILURE':
+      return { ...state, error: action.payload, isLoading: false };
+    default:
+      return state;
+  }
+};
+
+export default someReducer;
+=============================================================================
+E. Set Up Redux Store 
+--------------------- 
+Finally, set up your Redux store with Redux Thunk middleware.
+
+// store.js
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './reducers';
+
+const store = createStore(rootReducer, applyMiddleware(thunk));
+
+export default store;
+=============================================================================
+

@@ -1,0 +1,59 @@
+
+Redux vs others
+
+Performance Optimization
+useContext me har baar state change hone par pura component re-render hota hai, jo performance ko impact kar sakta hai.
+Redux me selectors (useSelector) aur memoization (reselect) ka use karke unnecessary re-renders rok sakte hain.
+
+
+redux ke pass Middleware Support hai . jb ki context api ke pass nhi hai aisa koi supporrt .
+=============================================================================
+
+left topics:
+
+Agar ye thoda complex lag raha hai, to tension mat lo! Middleware ka **basic concept samajhna important hai**, lekin sab kuch ek sath nahi seekhna. Step-by-step seekho, fir advance concepts easy lagenge.  
+
+---
+
+## 🔥 **Redux Seekhne Ka Best Flow (Step-by-Step)**  
+
+### ✅ **Basic Redux (Jo Tum Already Kar Chuke Ho)**  
+✔ Redux Store (`createStore`)  
+✔ Reducers (`state` update karna)  
+✔ Actions (`dispatch` se reducer tak bhejna)  
+✔ `useSelector()` & `useDispatch()` (React me Redux ka use)  
+✔ Middleware ka basic concept  
+
+---
+
+### 🚀 **Next Topics Jo Seekh Sakte Ho**  
+Agar tum **React-Redux without Redux Toolkit** seekh rahe ho, to in topics par dhyan do:  
+
+### **1️⃣ Redux Middleware - Advanced (Agar Samajhna Hai)**
+- **Redux Thunk** – API calls aur async logic handle karna  
+- **Redux Saga** – Complex async workflows (optional, lekin acha concept hai)  
+
+### **2️⃣ Redux DevTools (Debugging Easy Karne Ke Liye)**
+- `redux-devtools-extension` ka setup  
+- Store ke actions aur state changes track karna  
+
+### **3️⃣ Redux Persist (State Ko Save Karna)**
+- App reload hone par state **loss na ho**, iske liye `redux-persist` ka use  
+
+### **4️⃣ Redux with API Calls (Most Important)**
+- Redux me **API fetch karna** (Thunk ya normal `fetch`)  
+- API call success/failure handle karna  
+
+### **5️⃣ Redux Toolkit (Agar Seekhna Chaaho)**
+- Redux ka modern approach jo **bohot easy** aur optimized hai  
+- `configureStore`, `createSlice`, `createAsyncThunk` ka use  
+- Code kaafi chhota ho jata hai  
+
+---
+
+## 🎯 **Agle Steps Kya Hone Chahiye?**
+Agar **React me Redux without Toolkit ka strong grip chahiye**, to **Redux Thunk + API Calls** seekhna best hoga.  
+
+Agar tumhe **Redux ka modern way chahiye jo easy ho**, to **Redux Toolkit** seekh sakte ho.  
+
+**Batao, kis direction me jaana chahoge?** 😃

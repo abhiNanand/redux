@@ -1,0 +1,59 @@
+
+Redux ek library hai. Ye global state ko manage krta hai.
+
+
+-----------------------------------------------------------------------------
+
+🛠 Redux Kyun Use Karte Hain?
+-Agar React me sirf useState aur useContext se state manage karni ho, toh chhoti apps ke liye yeh theek hai. Lekin badi applications me multiple components ek hi data use karte hain, toh state ka management complex ho jata hai.
+
+👉 Redux ka kaam hota hai ek centralized store provide karna, jisme poori application ka data ek jagah store ho aur har component easily access kar sake.
+
+-----------------------------------------------------------------------------
+
+ Redux Ka Workflow (Simple Explanation)?
+
+ Redux 3 main part se bana hota hai.
+1️⃣ Store - jha poore application ka data store hota hai.
+2️⃣ Actions - javascript object hai jo batata hai ki kya change krna hai.
+3️⃣ Reducers - ye ke function hota hai jo store ko update karta hai.
+
+⚡ Redux Ka Flow
+
+1. Component me user koi action karega (e.g button click)
+2. action trigger hoga, aur redux ko bataya jayega ki kya change krna hai.
+3. reducer action ke basis pr store ko update karega.
+4. Store update hoke naya data se react component ko re-render karega.
+
+(Component) → Dispatch Action → Reducer → Store Update → (Component Re-renders)
+
+
+-----------------------------------------------------------------------------
+🛠 Redux Ka Use Kab Karein?
+Redux har project ke liye zaroori nahi hota, lekin agar tumhari application me complex state management hai, toh Redux use karna helpful ho sakta hai.
+
+✔ Redux Ka Use Karna Chahiye Jab:
+
+Multiple components ek hi state ka use kar rahe ho.
+State ka data frequently update hota ho.
+Debugging aur state tracking zaroori ho.
+❌ Redux Avoid Karna Chahiye Jab:
+
+Application chhoti ho aur useState / useContext kaafi ho.
+
+-----------------------------------------------------------------------------
+1️⃣ Install Redux & React-Redux
+npm install redux react-redux
+
+=============================================================================
+Three core Principle of Redux:
+------------------------------ 
+-The entire state of the application is stored in a single JavaScript object
+-The state cannot be modified directly. Instead, changes are made by dispatching actions.
+-The state is updated using pure functions called reducers.
+
+=============================================================================
+ Action have two things:
+ 
+type – यह एक string होती है जो बताती है कि action का मकसद क्या है।
+payload (optional) – In Redux, an action is an object with a type property. If the action needs to carry additional data (e.g., a value to increment or decrement by), that data is stored in the payload property.

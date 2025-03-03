@@ -1,0 +1,58 @@
+Payload use:
+
+
+// counterSlice.js
+const INCREMENT = "INCREMENT";
+const DECREMENT = "DECREMENT";
+
+// Action creators using payload
+export const increment = (value) => ({
+  type: INCREMENT,
+  payload: value, // The value to increment
+});
+
+export const decrement = (value) => ({
+  type: DECREMENT,
+  payload: value, // The value to decrement
+});
+
+// Initial state
+const initialState = {
+  count: 0,
+};
+
+// Reducer function
+const counterReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case INCREMENT:
+      return { ...state, count: state.count + action.payload }; // Using payload
+    case DECREMENT:
+      return { ...state, count: state.count - action.payload }; // Using payload
+    default:
+      return state;
+  }
+};
+
+export default counterReducer;
+=============================================================================
+
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { increment, decrement } from "./counterSlice";
+
+const App = () => {
+  const count = useSelector((state) => state.count);
+  const dispatch = useDispatch();
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h1>Counter: {count}</h1>
+      <button onClick={() => dispatch(increment(5))}>Increment by 5</button>
+      <button onClick={() => dispatch(decrement(2))}>Decrement by 2</button>
+    </div>
+  );
+};
+
+export default App;
+
+=============================================================================

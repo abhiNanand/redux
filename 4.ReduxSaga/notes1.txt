@@ -1,0 +1,30 @@
+Redux Saga:
+-is a library that manage application side effect more efficiently.(test, handle , execute).
+side effect (asynchronous things like data fetching and impure things like accessing the browser cache)
+
+-Redux-Saga ek middleware hai jo Redux store ke sath kaam karta hai aur asynchronous actions ko handle karne me madad karta hai. Yeh mainly side effects jaise ki API calls, delays, ya complex async logic ko manage karne ke liye use hota hai.
+
+          ======================================================
+
+Why do we use Redux Saga ?
+
+- Redux me asynchronous operation ko handle karne ke leeye Redux Thunk use hota hai, lekin agar application ka logic zada comple ho jaye tho(jaise ki debouncing , multiple dependent api call, retries etc.) to  Redux-Saga better choice hai.
+
+Redux-Saga generators (function*) ka use karta hai, jo synchronous code jaise lagta hai lekin async operations handle karta hai.
+     
+     ===================================================================
+
+📌 Redux-Saga Kaise Kaam Karta Hai?
+1. Sagas Listen to Actions: Saga redux ke action ko listen karta hai.
+2. Handle Side Effecta: Jaise API call, timeouts, ya doosre async tasks perform karta hai.
+3. Dispatch new actions: Api response ke basis pr naye actions dispatch karta hai. 
+
+     ====================================================================
+
+ Redux-Saga Example
+ ------------------
+ 
+ install redux saga:
+ npm install redux-saga
+ 
+  

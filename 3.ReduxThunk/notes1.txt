@@ -1,0 +1,15 @@
+Redux thunk is a middleware which is used to handle asynchronous actions.
+
+
+Flow of Redux:
+-Action object return karta hai. 
+-Reducer us action ko handle karta hai aur state update hoti hai.
+
+Redux Thunk Kya karta hai. 
+-------------------------- 
+i. handle synchronous and asynchronous action. 
+#ii#. ye object return nhi karta function return karta hai. 
+iii. ye function dispatch and getState ko access kr sakta hai. 
+iv. ye multiple action ko dispatch kar sakta hai and api call ya async logic perfrom kar sakta hai. 
+
+ ============================================================================
