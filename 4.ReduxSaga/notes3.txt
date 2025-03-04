@@ -1,0 +1,61 @@
+
+
+
+1.takeEvery(pattern, saga, ...args): Listen to every actions that matches the pattern and runs the saga concurrently. 
+
+Example:
+
+import { takeEvery } from 'redux-saga/effects';
+
+function* fetchUser(action) {
+  // logic to handle fetching user data
+}
+
+function* watchFetchUser() {
+  yield takeEvery('FETCH_USER', fetchUser);
+}
+
+============================================================================
+
+2.. takeLatest(pattern, saga, ...args)
+If another action of the same type is dispatched before the previous one finishes, the previous one is canceled.
+
+
+===========================================================================
+
+3.  call(fn, ...args)
+Calls a function and waits for its result (useful for API calls).
+
+function* fetchUser(action) {
+  const user = yield call(api.getUser, action.payload.userId);
+}
+
+============================================================================
+
+4. put(action)
+Dispatches an action to the Redux store.
+import { put } from 'redux-saga/effects';
+
+function* fetchUser() {
+  try {
+    const user = {}; // fetch user
+    yield put({ type: 'FETCH_USER_SUCCESS', payload: user });
+  } catch (error) {
+    yield put({ type: 'FETCH_USER_FAILED', error });
+  }
+}
+
+5. delay(ms):Pauses execution for a given time.
+ 
+6.all([...effects])
+Runs multiple sagas in parallel.
+Waits for all of them to complete.
+ 
+import { all } from 'redux-saga/effects';
+
+function* rootSaga() {
+  yield all([
+    helloSaga(),
+    watchFetchUser(),
+  ]);
+}

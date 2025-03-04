@@ -1,5 +1,6 @@
 const Counter = ({ value, onIncrement, onDecrement, onIncrementAsync }) => {
-    return (
+   
+  return (
       <div>
         <button onClick={onIncrementAsync}>Increment after 1 second</button>{" "}
         <button onClick={onIncrement}>Increment</button>{" "}

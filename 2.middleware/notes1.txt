@@ -86,7 +86,14 @@ New State: { count: 1 }
 
 
 
+Why Not Modify Actions in Reducers?
+Reducers Must Be Pure Functions
 
+A reducer cannot have side effects like API calls, logging, or modifying global state.
+If you modify the action inside the reducer, it can make debugging harder and lead to unexpected behavior.
+Reducers Should Only Determine the Next State
+
+They should take the previous state and action, then return the next state without causing additional effects.
 
 
 

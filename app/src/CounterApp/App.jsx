@@ -1,6 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
+import Counter from "./components/Counter";
 
 const App = () => {
+  
   const count = useSelector((state) => state.count);
   const dispatch = useDispatch();
 
@@ -17,5 +19,5 @@ const App = () => {
   );
 };
 
-import Counter from "./components/Counter";
+
 export default App;

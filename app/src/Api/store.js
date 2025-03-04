@@ -1,18 +1,17 @@
-import { createStore, applyMiddleware, combineReducers } from "redux";
+// src/redux/store.js
+
+import { createStore, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
 import userReducer from "./reducer";
-import {rootSaga} from "./sagas";
+import watchFetchUser from "./sagas";
 
 // Create Saga middleware
 const sagaMiddleware = createSagaMiddleware();
 
-// Combine reducers
-const rootReducer = combineReducers({ user: userReducer });
+// Create Redux store with middleware
+const store = createStore(userReducer, applyMiddleware(sagaMiddleware));
 
-// Create store with middleware
-const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
-
-// Run Saga middleware
-sagaMiddleware.run(rootSaga);
+// Run the saga
+sagaMiddleware.run(watchFetchUser);
 
 export default store;

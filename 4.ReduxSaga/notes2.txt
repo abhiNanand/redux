@@ -1,0 +1,56 @@
+import { takeEvery, put, delay } from "redux-saga/effects";
+
+// Worker saga: performs async increment
+function* incrementAsync() {
+  yield delay(1000); // Wait 1 second
+  yield put({ type: "INCREMENT" });
+
+//   ✅ Yeh function 1 second wait karega aur phir Redux me "INCREMENT" action bhej dega.
+}
+
+// Watcher saga: watches for "INCREMENT_ASYNC" and triggers incrementAsync
+export function* watchIncrementAsync() {
+  yield takeEvery("INCREMENT_ASYNC", incrementAsync);
+}
+
+/* 
+Redux-Saga Ka Mukhya Concept. Redux-Saga do tarah ke functions ka use karta hai:
+1. Watch Saga-  Yeh actions ko sunta hai aur worker saga ko activate karta hai.
+2. Worker Saga- Yeh async kaam karta hai jaise API call, delay, ya kuch aur processing.
+============================================================================
+
+
+Making our code testable:
+------------------------- 
+We want to test our incrementAsync Saga to make sure it performs the desired task.
+
+import test from 'tape'
+import {incrementAsync} from './sagas'
+
+test('incrementAsync Saga test' (assert)=>
+{
+    const gen = incrementAsync()
+}
+
+)
+
+gen.next()  //=>   { done: boolean, value: any }
+gen.next() //=>    { done: false, value: <result of calling put({type: 'INCREMENT'})> }
+gen.next()//=> { done: true, value: undefined }
+
+
+
+The value field contains the yielded expression.
+
+
+
+put({type: 'INCREMENT'}) // => { PUT: {type: 'INCREMENT'} }
+call(delay, 1000)        // => { CALL: {fn: delay, args: [1000]}}
+
+
+
+============================================================================
+What is Deep Equal?
+
+=deepEqual is used to check whether two objects or arrays have the same structure and values, even if they are different references in memory.
+
