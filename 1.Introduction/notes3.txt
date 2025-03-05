@@ -4,6 +4,11 @@ Redux vs others
 Performance Optimization
 useContext me har baar state change hone par pura component re-render hota hai, jo performance ko impact kar sakta hai.
 Redux me selectors (useSelector) aur memoization (reselect) ka use karke unnecessary re-renders rok sakte hain.
+example: 
+app->childA->ChildB->ChildC
+
+agar childC koi chez change kr rhe hai tho app,A,B,C sab render karega. lekin redux me sirf C render karega. 
+q ki useContext me value pass hota hai from parent to child iseleye sb re-render karega. app se value pass nhi karenge tho c me value access nhi kar sasktey . lekin redux hai jo usme value pass karenge ka jaururat nhi parta. ek jagah para hai jha koi v access kar sakta hai iseleye baki sab re-render nhi karega.
 
 
 redux ke pass Middleware Support hai . jb ki context api ke pass nhi hai aisa koi supporrt .

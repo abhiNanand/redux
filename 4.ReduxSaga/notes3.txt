@@ -59,3 +59,5 @@ function* rootSaga() {
     watchFetchUser(),
   ]);
 }
+============================================================================
+Error handling is important.

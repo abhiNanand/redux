@@ -15,7 +15,8 @@ const userReducer = (state=initialState,action)=>
     switch (action.type)
     {
         case "FETCH_USER_REQUEST":
-            return {...state,loading:true, error:null};
+            //return {...state,loading:false,user:action.payload};
+           return {...state,loading:true, error:null};
         case "FETCH_USER_SUCCESS":
             return {...state,loading:false,user:action.payload};
         case "FETCH_USER_FAILURE":
